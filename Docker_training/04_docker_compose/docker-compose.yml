@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    container_name: 'my-go-app'
+    ports:
+      - '3000:3000'
+    networks:
+      - fullstack
+
+  db:
+    image: postgres:12.2-alpine
+    container_name: 'my-go-app-db'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=no_pass
+    networks:
+      - fullstack
+    volumes:
+      - database_postgres:/var/lib/postgres/data
+
+volumes:
+  database_postgres:
+
+networks:
+  fullstack:
+    driver: bridge
