@@ -4,14 +4,14 @@
 package test
 
 import (
-	"fmt"
+	"log"
 	"testing"
 
 	"github.com/go-resty/resty/v2"
 )
 
 func TestHealthEndpoint(t *testing.T) {
-	fmt.Println("Running E2E tests for health check endpoint")
+	log.Println("Running E2E tests for health check endpoint")
 
 	client := resty.New()
 	resp, err := client.R().Get("http://localhost:8080/api/health")

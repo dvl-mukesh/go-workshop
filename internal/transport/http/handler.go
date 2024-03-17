@@ -3,6 +3,7 @@ package http
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -33,7 +34,7 @@ func NewHandler(service *comment.Service) *Handler {
 }
 
 func (h *Handler) SetupRoutes() {
-	fmt.Println("Setting up routes")
+	log.Println("Setting up routes")
 
 	h.Router = http.NewServeMux()
 	h.Router.HandleFunc("/api/health", healthHandler)
@@ -60,7 +61,7 @@ func (h *Handler) GetComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgInvalidId,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -71,7 +72,7 @@ func (h *Handler) GetComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgInternalServerErr,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -92,7 +93,7 @@ func (h *Handler) PostComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgBadReq,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -103,7 +104,7 @@ func (h *Handler) PostComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgBadReq,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -124,7 +125,7 @@ func (h *Handler) PutComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgBadReq,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -136,7 +137,7 @@ func (h *Handler) PutComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgInvalidId,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -147,7 +148,7 @@ func (h *Handler) PutComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgBadReq,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -170,7 +171,7 @@ func (h *Handler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgInvalidId,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -179,7 +180,7 @@ func (h *Handler) DeleteComment(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgInternalServerErr,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -197,7 +198,7 @@ func (h *Handler) GetAllComments(w http.ResponseWriter, r *http.Request) {
 			Status: dvlutil.StatusCodeNotOK,
 			Msg:    MsgInternalServerErr,
 		})
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
