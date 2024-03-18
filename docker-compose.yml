@@ -19,12 +19,14 @@ services:
   api:
     build: .
     container_name: 'comments-rest-api'
+    restart: on-failure
     environment:
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=postgres
+      DB_USERNAME: 'postgres'
+      DB_PASSWORD: 'postgres'
+      DB_HOST: 'db'
+      DB_PORT: '5432'
+      DB_NAME: 'postgres'
+      COMMENT_SERVICE_PORT: '8080'
 
     networks:
       - fullstack
