@@ -37,8 +37,8 @@ func (app *App) Run() error {
 	handler := transportHTTP.NewHandler(commentService)
 
 	handler.SetupRoutes()
-
-	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
+	log.Printf("Starting API server on PORT %s\n", envVars.Port)
+	if err := http.ListenAndServe(":"+envVars.Port, handler.Router); err != nil {
 		log.Println("Failed to setup server")
 		return err
 	}
@@ -51,6 +51,6 @@ func main() {
 	app := App{}
 	if err := app.Run(); err != nil {
 		log.Println("Error starting up REST API")
-		log.Println(err)
+		log.Fatal(err)
 	}
 }

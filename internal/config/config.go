@@ -6,4 +6,5 @@ type Environment struct {
 	DbHost     string `env:"DB_HOST,required"`
 	DbPort     string `env:"DB_PORT,required"`
 	DbName     string `env:"DB_NAME,required"`
+	Port       string `env:"COMMENT_SERVICE_PORT,required"`
 }
