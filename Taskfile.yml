@@ -1,0 +1,28 @@
+version: '3'
+
+vars:
+  APP_NAME: app
+
+tasks:
+  build:
+    cmds:
+      - go build -o {{.APP_NAME}} cmd/server/main.go
+    sources:
+      - "*.go"
+    generates:
+      - "{{.APP_NAME}}"
+  
+  test:
+    cmds:
+      - go test -v ./... -cover
+    sources:
+      - "**/*.go"
+    watch: true
+
+  lint:
+    cmds:
+      - golangci-lint run
+
+  run:
+    cmds:
+      - docker compose up --build

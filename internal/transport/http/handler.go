@@ -45,6 +45,9 @@ func (h *Handler) SetupRoutes() {
 	// h.Router.HandleFunc("PATCH /api/comment/{id}", h.PatchComment)
 	h.Router.HandleFunc("DELETE /api/comment/{id}", h.DeleteComment)
 
+	v1 := http.NewServeMux()
+	v1.Handle("/v1/", http.StripPrefix("/v1", h.Router))
+	h.Router = v1
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {

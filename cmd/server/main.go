@@ -8,6 +8,7 @@ import (
 	"github.com/dvl-mukesh/go-workshop/internal/comment"
 	"github.com/dvl-mukesh/go-workshop/internal/config"
 	"github.com/dvl-mukesh/go-workshop/internal/database"
+	"github.com/dvl-mukesh/go-workshop/internal/middleware"
 	transportHTTP "github.com/dvl-mukesh/go-workshop/internal/transport/http"
 )
 
@@ -38,7 +39,18 @@ func (app *App) Run() error {
 
 	handler.SetupRoutes()
 	log.Printf("Starting API server on PORT %s\n", envVars.Port)
-	if err := http.ListenAndServe(":"+envVars.Port, handler.Router); err != nil {
+	log.Println("Server Started...")
+
+	stack := middleware.CreateStack(
+		middleware.Logging,
+	)
+
+	server := http.Server{
+		Addr:    ":" + envVars.Port,
+		Handler: stack(handler.Router),
+	}
+
+	if err := server.ListenAndServe(); err != nil {
 		log.Println("Failed to setup server")
 		return err
 	}
